@@ -6,6 +6,11 @@
 # Compiled Dynamic libraries
 *.so
 
+# Apple
+.AppleDouble
+
+
+
 # Compiled Static libraries
 *.lai
 *.la
