@@ -91,11 +91,11 @@ if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
 	$size	= @GetImageSize( 'templates/splendid/imagecache/' . $spot['messageid'] );
 	
 	if($size[0] > 0) echo '		    <img src="templates/splendid/view_chached_image.php?image='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block" />';
-	  else echo '		    <img src="templates/splendid/resize_image.php?width=160&height=200&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">';
+	  else echo '		    <img src="templates/splendid/resize_image.php?width=140&height=200&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">';
 	
 } else {
 	
-	echo '		    <img src="templates/splendid/resize_image.php?width=160&height=200&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">';
+	echo '		    <img src="templates/splendid/resize_image.php?width=140&height=200&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">';
 	
 }
 

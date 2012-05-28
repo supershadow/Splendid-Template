@@ -153,11 +153,7 @@ echo "</th>";
 			</table>
 			<div class="description">
 				<h4><?php echo _('Post Description'); ?></h4>
-				<pre><?php echo $spot['description']; ?></pre>
-				
-				<?php print_r($spot);
-	echo 'asdasd'; ?>
-				
+				<?php echo yt($spot['description']); ?>
 			</div>
 			
 <?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_comments, '')) { ?>
@@ -204,4 +200,14 @@ if ($tplHelper->allowed(SpotSecurity::spotsec_post_comment, '')) {
 			}
 		</script>
 <?
+
+function yt($text) {
+   
+    $text = ' '.$text.' ';
+	//Modified!  to auto embed youtube links
+	$text = preg_replace("/<a href=\"\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)\">\s*[a-zA-Z\/\/:\.]*youtube.com\/watch\?v=([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)<\/a>/i"," <object width=\"425\" height=\"344\"><param name=\"movie\" value=\"http://www.youtube.com/v/$1&hl=en&fs=1\"></param><param name=\"allowFullScreen\" value=\"true\"></param><embed src=\"http://www.youtube.com/v/$1&hl=en&fs=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" width=\"425\" height=\"344\"></embed></object>",$text);
+	
+    return substr($text, 1, -1);
+}
+
 require_once "includes/footer.inc.php";
