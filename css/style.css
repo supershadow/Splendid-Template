@@ -15,7 +15,7 @@ input {outline:none;}
 div.clear {clear:both;}
 
 /* TOOLBAR */
-div#toolbar {background:url('../img/bg_header.jpg') repeat-x 0 0; height:25px; border-bottom: 1px solid #fff}
+div#toolbar {background:url('../img/bg_header.jpg') repeat-x 0 0; height:29px; border-bottom: 1px solid #fff}
 body.fixed div#toolbar {top:0; left:0; right:0; position:fixed; z-index:3;}
 
 div#toolbar span.scroll {position:absolute; overflow:hidden; top:2px; left:2px; height:18px;background:URL(../img/sprite_x.png) repeat-x 0 -105px; border:1px solid #b5b5b5; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px}
@@ -154,7 +154,7 @@ div#filter h4 {
     background: none;
 }
 
-body.fixed div#filter {position:fixed; top:25px;}
+body.fixed div#filter {position:fixed; top:29px;}
 
 body.spotinfo div.sidebarPanel:not(.advancedSearch) h4:first-child,
 body.spotinfo div.filter h4:first-child {-moz-border-radius:0 0 4px 0; -webkit-border-radius:0 0 4px 0; border-radius:0 0 4px 0;}
@@ -387,7 +387,7 @@ div.details table.spotdetails td.info {width:100%;}
 
 div.details div.warning {background-color:#e33b1a; border:1px solid #ab1c00; color:#fff; line-height:18px; padding:0; text-align:center; vertical-align:top; margin:2px 5px 3px 5px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; font-weight:bold;}
 div.details div.announce {background-color:#2bb31a; border:1px solid #1cab00; color:#fff; line-height:18px; padding:0; text-align:center; vertical-align:top; margin:2px 5px 3px 5px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; font-weight:bold;}
-body.fixed div#overlay table.spotheader {margin-left:235px; top:25px;}
+body.fixed div#overlay table.spotheader {margin-left:235px; top:29px;}
 div.details.external table.spotheader,
 div.details.noscroll table.spotheader {margin:0 0 0 0;}
 div.details table.spotheader {position:fixed; left:0; right:0; top:0; z-index:4; margin:0 16px 0 0; border-collapse:separate; border-spacing:5px 0; padding:5px 0; background:#fff;}
@@ -537,9 +537,9 @@ div.details th.back {width:20px; padding:0;}
 a.closeDetails {display:block; background:url(../img/sprite_x.png) repeat-x 0 -60px; width:25px; height:20px; line-height:20px; text-align:center; cursor:pointer; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;}
 
 div#overlay {position:absolute; top:0; bottom:0; left:0; right:0; background-color:#fff; z-index:2; display:none; overflow:auto;}
-body.fixed div#overlay {top:25px; left:235px;}
+body.fixed div#overlay {top:29px; left:236px;}
 div#overlay.loading {position:fixed; background:#fff url(../img/loading.gif) no-repeat 50% 50%; opacity:0.75; filter:alpha(opacity = 75);}
-body.fixed div#overlay.loading {top:45px;}
+body.fixed div#overlay.loading {top:29px;}
 body.spotinfo.fixed div#overlay.loading {top:25px;}
 div#overlay.loading.notrans {opacity:1; filter:alpha(opacity = 100);}
 

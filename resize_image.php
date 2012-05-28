@@ -95,14 +95,6 @@ if (!$image)
 // Strip the possible trailing slash off the document root
 $docRoot	= preg_replace('/\/$/', '', DOCUMENT_ROOT);
 
-//if (!file_exists($docRoot . $image))
-//if (!file_exists($_GET['image']))/
-//{
-//	header('HTTP/1.1 404 Not Found');
-//	echo 'Error: image does not exist: ' . $_GET['image'];
-//	exit();
-//}
-
 // Get the size and MIME type of the requested image
 $size	= GetImageSize($_GET['image']);
 $mime	= $size['mime'];
@@ -163,6 +155,7 @@ if ((!$maxWidth && !$maxHeight) || (!$color && $maxWidth >= $width && $maxHeight
 	header("Content-type: $mime");
 	header('Content-Length: ' . strlen($data));
 	echo $data;
+	
 	exit();
 }
 
@@ -226,16 +219,18 @@ $resizedImageSource		.= '-' . $image;
 
 $resizedImage	= $_GET['imgid'];
 	
-$resized		= CACHE_DIR . $resizedImage;
+$resized		= 'imagecache/' . $resizedImage;
 
 // Check the modified times of the cached file and the original file.
 // If the original file is older than the cached file, then we simply serve up the cached file
-if (!isset($_GET['nocache']) && !file_exists($resized))
+if (!isset($_GET['nocache']) && file_exists($resized))
 {
 	$imageModified	= @filemtime($_GET['image']);
 	$thumbModified	= filemtime($resized);
 	
-	if($imageModified < $thumbModified) {
+	$size = @GetImageSize( 'imagecache/' . $resizedImage );
+	
+	if($imageModified < $thumbModified && $size[0] > 0) {
 		$data	= file_get_contents($resized);
 	
 		$lastModifiedString	= gmdate('D, d M Y H:i:s', $thumbModified) . ' GMT';
@@ -351,7 +346,7 @@ else if (!is_writable(CACHE_DIR))
 }
 
 // Write the resized image to the cache
-if (!isset($_GET['nocache'])) $outputFunction($dst, $resized, $quality);
+if (!isset($_GET['nocache'])) @$outputFunction($dst, $resized, $quality);
 
 // Put the data of the resized image into a variable
 ob_start();
@@ -364,7 +359,7 @@ ImageDestroy($src);
 ImageDestroy($dst);
 
 // See if the browser already has the image
-$lastModifiedString	= @gmdate('D, d M Y H:i:s', filemtime($resized)) . ' GMT';
+$lastModifiedString	= @gmdate('D, d M Y H:i:s', @filemtime($resized)) . ' GMT';
 $etag				= md5($data);
 
 doConditionalGet($etag, $lastModifiedString);
