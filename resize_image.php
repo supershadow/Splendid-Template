@@ -102,8 +102,21 @@ $mime	= $size['mime'];
 // Make sure that the requested file is actually an image
 if (substr($mime, 0, 6) != 'image/')
 {
-	header('HTTP/1.1 400 Bad Request');
-	echo 'Error: requested file is not an accepted type: ' . $docRoot . $image;
+	
+	if($_GET['height'] == 140) $noimg = 'noimg_140.png';
+	  else $noimg = 'noimg.png';
+	
+	$size	= GetImageSize('img/'.$noimg);
+	$mime	= $size['mime'];
+	$data	= file_get_contents('img/'.$noimg);
+	
+	header("Content-type: $mime");
+	header('Content-Length: ' . strlen($data));
+	
+	echo $data;
+	
+	//header('HTTP/1.1 400 Bad Request');
+	//echo 'Error: requested file is not an accepted type: ' . $_GET['image'].', it\'s '.print_r($size);
 	exit();
 }
 

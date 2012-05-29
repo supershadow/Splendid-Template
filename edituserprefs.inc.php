@@ -115,9 +115,13 @@ if (!$dialogembedded) { ?>
 					<dt><label for="edituserprefsform[template]"><?php echo _('Template');?></label></dt>
 					<dd>
 						<select name="edituserprefsform[template]">
+<?php
+$templates = $tplHelper->get_available_templates('./templates');
+foreach($templates AS $template) echo '							<option '.(($edituserprefsform['template'] == $template) ? 'selected="selected"' : '').' value="'.$template.'">'.$template.'</option>'.PHP_EOL;
+?>
+<!--
 							<option <?php if ($edituserprefsform['template'] == 'we1rdo') { echo 'selected="selected"'; } ?> value="we1rdo" selected>we1rdo (standaard)</option>
 							<option <?php if ($edituserprefsform['template'] == 'splendid') { echo 'selected="selected"'; } ?> value="splendid" selected>Splendid</option>
-<!--
 	Deze zijn uitgecommentarieerd omdat als je deze kiest, je niet meer terug kan aangezien beide
 	templates geen edit-preferences geimplementeerd hebben
 	

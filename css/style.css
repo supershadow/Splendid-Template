@@ -653,7 +653,7 @@ tr.ui-widget-header a {
 	width: 140px;
 	height: 196px;
 	overflow: hidden;
-	margin: 10px;
+	margin: 10px 10px 6px 10px;
 	cursor: pointer;
 }
 
@@ -678,6 +678,12 @@ tr.ui-widget-header a {
 
 .spot_thumb_view .footer {
 	padding: 0 10px;
+}
+
+.spot_thumb_view .footer a {
+	color: #616161;
+	line-height: 20px;
+	text-decoration: none;
 }
 
 .spot_thumb_view .footer .watch {

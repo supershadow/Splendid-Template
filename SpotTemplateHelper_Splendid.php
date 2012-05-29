@@ -131,4 +131,22 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 		return array();
 	} # getStaticFiles 
 	
+	
+	# Geeft een array terug van beschikbare templates
+	function get_available_templates($directory_to_scan) {
+		
+		$banned_folders = array('examplechild','notifications','mobile','.AppleDouble');
+    	$rtn = array();
+		foreach(scandir($directory_to_scan) as $item) {
+		  
+		  if ($item != "." && $item != ".." && !in_array($item, $banned_folders) && !is_file($directory_to_scan.'/'.$item)) {
+			
+			$rtn[] = $item;
+			
+		  }
+		}
+		return $rtn;
+		
+	}
+	
 } # class SplendidTemplateHelper

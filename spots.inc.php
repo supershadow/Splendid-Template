@@ -76,26 +76,38 @@
 			$reportSpam = '<span class="reportedSpam'.$reportSpamClass.'" title="' . sprintf(ngettext('There is %d spamreport found for this spot', 'There are %d spamreports found for this spot', $spot['reportcount']), $spot['reportcount']) . '"><span>'.$spot['reportcount'].'</span></span>';
 		}
 		
-		$fullSpot = $this->_tplHelper->getFullSpot($spot['messageid'], false);
+		//$fullSpot = $this->_tplHelper->getFullSpot($spot['messageid'], false);
 		//print_r($spot);
-		?>
-		
-		
-		<div class="spot_thumb_view spotlink <?php echo $newSpotClass ?>" id="spot_<?php echo $spot['id'] ?>" data-cats="<?php echo $catData ?>">
-		  
-		  <div class="cover" onclick="openSpot('spot_<?php echo $spot['id'] ?>','<?php echo $spot['spoturl'] ?>')" href="<?php echo $spot['spoturl'] ?>">
-<?php
+
+
+//print_r($_GET['search']['tree']);
+if(isset($_GET['search']) && stristr($_GET['search']['tree'], 'cat1')) {
+	
+	$thumbsize = ' style="height: 186px"';
+	$coversize = ' style="height: 140px"';
+	$imgsize   = 'width=140&height=140&cropratio=1:1';
+	
+} else {
+	
+	$thumbsize = '';
+	$coversize = '';
+	$imgsize   = 'width=140&height=200';
+	
+}
+
+echo '		<div class="spot_thumb_view spotlink '.$newSpotClass.'"'.$thumbsize.' id="spot_'.$spot['id'].'" data-cats="'.$catData.'">'.PHP_EOL;
+echo '		  <div class="cover"'.$coversize.' onclick="openSpot(\'spot_'.$spot['id'].'\',\''.$spot['spoturl'].'\')" href="'.$spot['spoturl'].'">'.PHP_EOL;
 
 if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
 	
 	$size	= @GetImageSize( 'templates/splendid/imagecache/' . $spot['messageid'] );
 	
-	if($size[0] > 0) echo '		    <img src="templates/splendid/view_chached_image.php?image='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block" />';
-	  else echo '		    <img src="templates/splendid/resize_image.php?width=140&height=200&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">';
+	if($size[0] > 0) echo '		    <img src="templates/splendid/view_chached_image.php?image='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block" />'.PHP_EOL;
+	  else echo '		    <img src="templates/splendid/resize_image.php?'.$imgsize.'&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">'.PHP_EOL;
 	
 } else {
 	
-	echo '		    <img src="templates/splendid/resize_image.php?width=140&height=200&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">';
+	echo '		    <img src="templates/splendid/resize_image.php?'.$imgsize.'&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">'.PHP_EOL;
 	
 }
 
@@ -143,6 +155,7 @@ if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
 		    <?php
 		    
 		    //echo 'rating: '.$rating;
+		    echo '<a href="'.$tplHelper->makePosterUrl($spot).'" title="'.sprintf(_('Find spots from %s'), $spot['poster']).'">'.$spot['poster'].'</a>'.PHP_EOL;
 		    
 		    # only display the NZB button from 24 nov or later
 			if ($spot['stamp'] > 1290578400 ) {
