@@ -76,78 +76,54 @@
 			$reportSpam = '<span class="reportedSpam'.$reportSpamClass.'" title="' . sprintf(ngettext('There is %d spamreport found for this spot', 'There are %d spamreports found for this spot', $spot['reportcount']), $spot['reportcount']) . '"><span>'.$spot['reportcount'].'</span></span>';
 		}
 		
-		
-		
-		
-		/*
-		Array
-(
-    [stamp] => 1338391612
-    [metadata] => Array
-        (
-            [width] => 200
-            [height] => 300
-            [imagetype] => 2
-        )
 
-    [serialized] => 0
-    [content] => 'binary data'
-)
+		// Set cover variables
+		if(isset($_GET['search']) && stristr($_GET['search']['tree'], 'cat1')) {
+			
+			$thumbsize = ' style="height: 186px"';
+			$coversize = ' style="height: 140px"';
+			$thumb_width  = 140;
+			$thumb_height = 140;
+			$thumb_crop   = '1:1';
+			
+		} else {
+			
+			$thumbsize    = '';
+			$coversize    = '';
+			$thumb_width  = 140;
+			$thumb_height = 200;
+			$thumb_crop   = '0.7:1';
+			
+		}
+		
 
-imagetypes 1 = 
-		*/
+		echo '		<div class="spot_thumb_view spotlink '.$newSpotClass.'"'.$thumbsize.' id="spot_'.$spot['id'].'" data-cats="'.$catData.'">'.PHP_EOL;
+		echo '		  <div class="cover"'.$coversize.' onclick="openSpot(\'spot_'.$spot['id'].'\',\''.$spot['spoturl'].'\')" href="'.$spot['spoturl'].'">'.PHP_EOL;
+		echo '          <div class="spot_type spot_type_'.$spot['catshortdesc'].'"></div>'.PHP_EOL;
 		
+		if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
+			
+			$size	= @GetImageSize( 'templates/splendid/imagecache/' . $spot['messageid'] );
+			
+			if($size[0] > 0) {
+				
+				$post_img = 'templates/splendid/imagecache/'.$spot['messageid'];
+				
+			} else {
+				
+				$post_img = $tplHelper->get_thumbnail($spot['messageid'], $thumb_width, $thumb_height, $thumb_crop);
+				
+			}
+			
+		} else {
+			
+			$post_img = $tplHelper->get_thumbnail($spot['messageid'], $thumb_width, $thumb_height, $thumb_crop);
+			
+		}
 		
+		echo '		    <img src="'.$post_img.'" alt="'.$spot['title'].'" style="display: block" />';
 		
-		
-		
-		//print_r($spot);
-
-
-//print_r($_GET['search']['tree']);
-if(isset($_GET['search']) && stristr($_GET['search']['tree'], 'cat1')) {
-	
-	$thumbsize = ' style="height: 186px"';
-	$coversize = ' style="height: 140px"';
-	$imgsize   = 'width=140&height=140&cropratio=1:1';
-	
-} else {
-	
-	$thumbsize = '';
-	$coversize = '';
-	$imgsize   = 'width=140&height=200&cropratio=0.7:1';
-	
-}
-
-//print_r($spot);
-
-echo '		<div class="spot_thumb_view spotlink '.$newSpotClass.'"'.$thumbsize.' id="spot_'.$spot['id'].'" data-cats="'.$catData.'">'.PHP_EOL;
-echo '		  <div class="cover"'.$coversize.' onclick="openSpot(\'spot_'.$spot['id'].'\',\''.$spot['spoturl'].'\')" href="'.$spot['spoturl'].'">'.PHP_EOL;
-echo '          <div class="spot_type spot_type_'.$spot['catshortdesc'].'"></div>'.PHP_EOL;
-
-if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
-	
-	$size	= @GetImageSize( 'templates/splendid/imagecache/' . $spot['messageid'] );
-	
-	if($size[0] > 0) {
-		
-		$post_img = 'templates/splendid/imagecache/'.$spot['messageid'];
-		
-	} else {
-		
-		$post_img = $tplHelper->get_thumbnail($spot['messageid']);
-		
-	}
-	
-} else {
-	
-	$post_img = $tplHelper->get_thumbnail($spot['messageid']);
-	
-}
-
-echo '		    <img src="'.$post_img.'" alt="'.$spot['title'].'" style="display: block" />';
-
-?>
+		?>
 		    <div class="spotinfo">
 		      
 		      <h1><?php echo $spot['title'] ?></h1><br />
