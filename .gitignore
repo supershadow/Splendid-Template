@@ -8,7 +8,7 @@
 
 # Apple
 .AppleDouble
-
+.DS_Store
 
 
 # Compiled Static libraries

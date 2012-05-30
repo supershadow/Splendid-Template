@@ -112,32 +112,40 @@ if (!$dialogembedded) { ?>
 						</select>
 					</dd>
 					
-					<dt><label for="edituserprefsform[template]"><?php echo _('Template');?></label></dt>
+<?php if ($tplHelper->allowed(SpotSecurity::spotsec_select_template, '')) { ?>					
+					<dt><label for="edituserprefsform[normal_template]"><?php echo _('Template for non-mobile devices');?></label></dt>
 					<dd>
-						<select name="edituserprefsform[template]">
-<?php
-$templates = $tplHelper->get_available_templates('./templates');
-foreach($templates AS $template) echo '							<option '.(($edituserprefsform['template'] == $template) ? 'selected="selected"' : '').' value="'.$template.'">'.$template.'</option>'.PHP_EOL;
-?>
-<!--
-							<option <?php if ($edituserprefsform['template'] == 'we1rdo') { echo 'selected="selected"'; } ?> value="we1rdo" selected>we1rdo (standaard)</option>
-							<option <?php if ($edituserprefsform['template'] == 'splendid') { echo 'selected="selected"'; } ?> value="splendid" selected>Splendid</option>
-	Deze zijn uitgecommentarieerd omdat als je deze kiest, je niet meer terug kan aangezien beide
-	templates geen edit-preferences geimplementeerd hebben
-	
-							<option value="mobile">Mobile</option>
--->
+						<select name="edituserprefsform[normal_template]">
+							<?php foreach($tplHelper->getConfiguredTemplates() as $tplkey => $tplvalue) { ?>
+								<?php if ($tplHelper->allowed(SpotSecurity::spotsec_select_template, $tplkey)) { ?>					
+									<option <?php if ($edituserprefsform['normal_template'] == $tplkey) { echo 'selected="selected"'; } ?> value="<?php echo $tplkey; ?>"><?php echo $tplvalue; ?></option>
+								<?php } ?> 
+							<?php } ?> 
 						</select>
 					</dd>
-					
-					<dt><label for="edituserprefsform[coverview]"><?php echo _('View list as coverview');?></label></dt>
+
+					<dt><label for="edituserprefsform[mobile_template]"><?php echo _('Template for mobiles');?></label></dt>
 					<dd>
-						<select name="edituserprefsform[coverview]">
-							<option <?php if ($edituserprefsform['coverview'] == 'Y') { echo 'selected="selected"'; } ?> value="Y" selected>Ja</option>
-							<option <?php if ($edituserprefsform['coverview'] == 'N') { echo 'selected="selected"'; } ?> value="N" selected>Nee</option>
--->
+						<select name="edituserprefsform[mobile_template]">
+							<?php foreach($tplHelper->getConfiguredTemplates() as $tplkey => $tplvalue) { ?>
+								<?php if ($tplHelper->allowed(SpotSecurity::spotsec_select_template, $tplkey)) { ?>					
+									<option <?php if ($edituserprefsform['mobile_template'] == $tplkey) { echo 'selected="selected"'; } ?> value="<?php echo $tplkey; ?>"><?php echo $tplvalue; ?></option>
+								<?php } ?> 
+							<?php } ?> 
 						</select>
 					</dd>
+
+					<dt><label for="edituserprefsform[tablet_template]"><?php echo _('Template for tablets');?></label></dt>
+					<dd>
+						<select name="edituserprefsform[tablet_template]">
+							<?php foreach($tplHelper->getConfiguredTemplates() as $tplkey => $tplvalue) { ?>
+								<?php if ($tplHelper->allowed(SpotSecurity::spotsec_select_template, $tplkey)) { ?>					
+									<option <?php if ($edituserprefsform['tablet_template'] == $tplkey) { echo 'selected="selected"'; } ?> value="<?php echo $tplkey; ?>"><?php echo $tplvalue; ?></option>
+								<?php } ?> 
+							<?php } ?> 
+						</select>
+					</dd>
+<?php } ?>
 
 <?php if ($tplHelper->allowed(SpotSecurity::spotsec_view_spotcount_filtered, '')) { ?>					
 					<dt><label for="edituserprefsform[count_newspots]"><?php echo _('Count new spots in filter list'); ?></label></dt>

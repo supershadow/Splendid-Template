@@ -657,6 +657,26 @@ tr.ui-widget-header a {
 	cursor: pointer;
 }
 
+.spot_thumb_view .cover .spotinfo td {
+	padding-left: 0;
+}
+
+.spot_thumb_view .cover .spot_type {
+	width: 42px;
+	height: 42px;
+	position: absolute;
+	margin: -10px 0 0 -10px;
+	background: url('../img/spot_sprite.png') no-repeat;
+}
+
+/* Spot Types */
+.spot_thumb_view .cover .spot_type_DVD9 { background-position: -42px 0 }
+.spot_thumb_view .cover .spot_type_x264HD { background-position: -84px 0 }
+.spot_thumb_view .cover .spot_type_DivX { background-position: -126px 0 }
+.spot_thumb_view .cover .spot_type_MPG { background-position: -168px 0 }
+.spot_thumb_view .cover .spot_type_Blu-ray { background-position: -210px 0 }
+.spot_thumb_view .cover .spot_type_HD { background-position: -252px 0 }
+
 .spot_thumb_view .cover .spotinfo {
 	width: 120px;
 	height: 180px;
@@ -670,10 +690,6 @@ tr.ui-widget-header a {
 	padding: 0;
 	font-size: 14px;
 	color: #404040;
-}
-
-.spot_thumb_view .cover .spotinfo td {
-	padding-left: 0;
 }
 
 .spot_thumb_view .footer {
