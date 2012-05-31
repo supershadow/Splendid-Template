@@ -692,6 +692,15 @@ tr.ui-widget-header a {
 .spot_thumb_view .cover .spot_type_MAC { background-position: -294px -84px }
 .spot_thumb_view .cover .spot_type_PS2 { background-position: -336px -84px }
 .spot_thumb_view .cover .spot_type_PS3 { background-position: -378px -84px }
+.spot_thumb_view .cover .spot_type_iOS { background-position: -126px -42px }
+
+.spot_thumb_view .cover .spot_type_Android_app { background-position: -168px -42px }
+.spot_thumb_view .cover .spot_type_WIN_app { background-position: -210px -42px }
+.spot_thumb_view .cover .spot_type_MAC_app { background-position: -252px -42px }
+.spot_thumb_view .cover .spot_type_TUX_app { background-position: -294px -42px }
+.spot_thumb_view .cover .spot_type_NAV_app { background-position: -336px -42px }
+.spot_thumb_view .cover .spot_type_iOS_app { background-position: -378px -42px }
+.spot_thumb_view .cover .spot_type_WinPh_app { background-position: -336px 0 }
 
 .spot_thumb_view .cover .spotinfo {
 	width: 120px;
