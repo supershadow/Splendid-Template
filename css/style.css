@@ -387,7 +387,7 @@ div.details table.spotdetails td.info {width:100%;}
 
 div.details div.warning {background-color:#e33b1a; border:1px solid #ab1c00; color:#fff; line-height:18px; padding:0; text-align:center; vertical-align:top; margin:2px 5px 3px 5px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; font-weight:bold;}
 div.details div.announce {background-color:#2bb31a; border:1px solid #1cab00; color:#fff; line-height:18px; padding:0; text-align:center; vertical-align:top; margin:2px 5px 3px 5px; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px; font-weight:bold;}
-body.fixed div#overlay table.spotheader {margin-left:235px; top:29px;}
+body.fixed div#overlay table.spotheader {margin-left:236px; top:29px;}
 div.details.external table.spotheader,
 div.details.noscroll table.spotheader {margin:0 0 0 0;}
 div.details table.spotheader {position:fixed; left:0; right:0; top:0; z-index:4; margin:0 16px 0 0; border-collapse:separate; border-spacing:5px 0; padding:5px 0; background:#fff;}
@@ -637,7 +637,8 @@ tr.ui-widget-header a {
 
 #spots_thumbnails .new { border: 1px solid orange }
 
-.spot_thumb_view {
+.spot_thumb_view,
+.spot_thumb_view .cover .spotinfo {
 	width: 160px;
 	height: 240px;
 	display: block;
@@ -649,12 +650,24 @@ tr.ui-widget-header a {
 	background: #fff;
 }
 
+.spot_thumb_view .cover .spotinfo {
+	display: none;
+	position: absolute;
+	z-index:2;
+	margin: -11px 0 0 -11px;
+}
+
 .spot_thumb_view .cover {
 	width: 140px;
 	height: 196px;
 	overflow: hidden;
 	margin: 10px 10px 6px 10px;
 	cursor: pointer;
+}
+
+.spot_thumb_view .cover img,
+.spot_thumb_view .cover .footer {
+	position: relative;
 }
 
 .spot_thumb_view .cover .spotinfo td {
@@ -666,8 +679,46 @@ tr.ui-widget-header a {
 	height: 42px;
 	position: absolute;
 	margin: -10px 0 0 -10px;
+	z-index:1;
 	background: url('../img/sprite_spot.png') no-repeat;
 }
+
+.spot_thumb_view .cover .spotinfo div {
+	width: 120px;
+	height: 180px;
+	padding: 10px;
+	display: none;
+	margin: 10px;
+	overflow: auto;
+	background-color: #ededed;
+}
+
+.spot_thumb_view .cover .spotinfo h1 {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	color: #404040;
+}
+
+.spot_thumb_view .footer {
+	padding: 0 10px;
+}
+
+.spot_thumb_view .footer a {
+	color: #616161;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+.spot_thumb_view .footer .watch {
+	float: right;
+	margin-top: 2px;
+}
+
+.spot_thumb_view .footer .sabnzbd { display: block; min-width:22px; width:22px; padding:0 0 0 3px; float: right }
+.spot_thumb_view .footer .sabnzbd a.sabnzbd-button { cursor: pointer; background: url('../img/sprite.png') no-repeat -2px -94px; display:block; width:18px; height:16px; margin:2px 0 2px 3px }
+.spot_thumb_view .footer .sabnzbd a.loading { background: url('../img/loading.gif') no-repeat }
+.spot_thumb_view .footer .sabnzbd a.succes { background-position:-20px -93px }
 
 /* Spot Types */
 .spot_thumb_view .cover .spot_type_DVD9 { background-position: -42px 0 }
@@ -701,41 +752,6 @@ tr.ui-widget-header a {
 .spot_thumb_view .cover .spot_type_NAV_app { background-position: -336px -42px }
 .spot_thumb_view .cover .spot_type_iOS_app { background-position: -378px -42px }
 .spot_thumb_view .cover .spot_type_WinPh_app { background-position: -336px 0 }
-
-.spot_thumb_view .cover .spotinfo {
-	width: 120px;
-	height: 180px;
-	padding: 10px;
-	display: none;
-	background-color: #ededed;
-}
-
-.spot_thumb_view .cover .spotinfo h1 {
-	margin: 0;
-	padding: 0;
-	font-size: 14px;
-	color: #404040;
-}
-
-.spot_thumb_view .footer {
-	padding: 0 10px;
-}
-
-.spot_thumb_view .footer a {
-	color: #616161;
-	line-height: 20px;
-	text-decoration: none;
-}
-
-.spot_thumb_view .footer .watch {
-	float: right;
-	margin-top: 2px;
-}
-
-.spot_thumb_view .footer .sabnzbd { display: block; min-width:22px; width:22px; padding:0 0 0 3px; float: right }
-.spot_thumb_view .footer .sabnzbd a.sabnzbd-button { cursor: pointer; background: url('../img/sprite.png') no-repeat -2px -94px; display:block; width:18px; height:16px; margin:2px 0 2px 3px }
-.spot_thumb_view .footer .sabnzbd a.loading { background: url('../img/loading.gif') no-repeat }
-.spot_thumb_view .footer .sabnzbd a.succes { background-position:-20px -93px }
 
 /*
 #spots_thumbnails {

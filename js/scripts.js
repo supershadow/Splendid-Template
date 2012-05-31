@@ -1618,18 +1618,54 @@ $(window).ready(function() {
 	
 	//setThumbViewSize();
 	
-	$('.spot_thumb_view .cover').live({
+	$('.spot_thumb_view .cover').on({
 		
 		'mouseover': function() {
-		
-			$('.spotinfo', this).show();
-			$('img', this).hide();
+			
+			$('.spotinfo', this).css({'display':'block','z-index': 2});
+			$('.spot_type', this).css({'z-index':3});
+			$('.footer', this).css({'z-index':3});
+			$('.spotinfo div', this).show();
+			
+			$('.spotinfo',this).animate({ width: '332px' }, 100);
+			$('.spotinfo div',this).animate({ width: '292px', height: '200px' }, 100);
+
 		},
 		
 		'mouseleave': function() {
+			
+			var ele = this;
+			
+			$('.spotinfo', ele).animate({ width: '160px' }, 0, function() {
+				
+				$(this).css({'z-index': 1});
+				$('.spotinfo', ele).hide();
+				$('.spot_type', ele).css({'z-index':1});
+				$('.footer', this).css({'z-index':0});
+				
+			});
+			
+			$('.spotinfo div',this).animate({ width: '140px', height: '160px' }, 100);
+			
+			//$('img', this).show();
+			//$('.spot_type', this).show();
+		},
 		
-			$('.spotinfo', this).hide();
-			$('img', this).show();
+		'click': function() {
+			
+			var ele = this;
+			
+			$('.spotinfo', ele).animate({ width: '160px' }, 0, function() {
+				
+				$(this).css({'z-index': 1});
+				$('.spotinfo', ele).hide();
+				$('.spot_type', ele).css({'z-index':1});
+				$('.footer', this).css({'z-index':0});
+				
+			});
+			
+			$('.spotinfo div',this).animate({ width: '140px', height: '160px' }, 100);
+			
 		}
 		
 	});

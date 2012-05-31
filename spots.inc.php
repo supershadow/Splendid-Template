@@ -25,7 +25,7 @@
 		}
 		catch(Exception $mssg_id) {
 			// Skip this spot because it isn't valid
-			return false;
+			continue;
 		}
 		
 		# Format the spot header
@@ -108,6 +108,48 @@
 
 		echo '		<div class="spot_thumb_view spotlink '.$newSpotClass.'"'.$thumbsize.' id="spot_'.$spot['id'].'" data-cats="'.$catData.'">'.PHP_EOL;
 		echo '		  <div class="cover"'.$coversize.' onclick="openSpot(\'spot_'.$spot['id'].'\',\''.$spot['spoturl'].'\')" href="'.$spot['spoturl'].'">'.PHP_EOL;
+		
+		?>
+		
+		<div class="spotinfo <?php echo $newSpotClass ?>">
+		  <div>
+		      <h1><?php echo $spot['title'] ?></h1><br />
+		      
+<?php
+
+	if (!empty($spot['subcatlist'])) {
+		$i=1;
+		echo '<table>';
+		foreach($spot['subcatlist'] as $sub) {
+			
+			if($i < 10) {
+			
+				$subcatType = substr($sub, 0, 1);
+			
+				$cat = SpotCategories::SubcatDescription($spot['category'], $subcatType);
+			
+				if($cat != '-') {
+			
+					echo '<tr><td>'.$cat . ':</td>';
+					echo "<td>" . SpotCategories::Cat2Desc($spot['category'], $sub) . "</td></tr>";
+					
+					$i++;
+					
+				}
+			
+			}
+			
+		} # foreach
+		echo '<tr><td>Omvang:</td><td>'.$tplHelper->format_size($spot['filesize']).'</td></tr>';
+		echo '</table>';
+	} # if
+?>
+		      
+		  </div>
+		</div>
+		
+		<?php
+		
 		echo '          <div class="spot_type spot_type_'.$spot['catshortdesc'].(($spot['category'] == 3) ? '_app' : '').'"></div>'.PHP_EOL;
 		
 		if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
@@ -169,41 +211,6 @@ if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
 		
 		
 		?>
-		    <div class="spotinfo">
-		      
-		      <h1><?php echo $spot['title'] ?></h1><br />
-		      
-<?php
-
-	if (!empty($spot['subcatlist'])) {
-		$i=1;
-		echo '<table>';
-		foreach($spot['subcatlist'] as $sub) {
-			
-			if($i < 4) {
-			
-				$subcatType = substr($sub, 0, 1);
-			
-				$cat = SpotCategories::SubcatDescription($spot['category'], $subcatType);
-			
-				if($cat != 'Typen' AND $cat != '-' AND $cat != 'Taal') {
-			
-					echo '<tr><td>'.$cat . ':</td>';
-					echo "<td>" . SpotCategories::Cat2Desc($spot['category'], $sub) . "</td></tr>";
-					
-					$i++;
-					
-				}
-			
-			}
-			
-		} # foreach
-		echo '<tr><td>Omvang:</td><td>'.$tplHelper->format_size($spot['filesize']).'</td></tr>';
-		echo '</table>';
-	} # if
-?>
-		      
-		    </div>
 		    
 		  </div>
 		  
