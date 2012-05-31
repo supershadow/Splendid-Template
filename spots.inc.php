@@ -18,6 +18,16 @@
 	
 	foreach($spots as $spot) {
 		
+		$mssg_id = $spot['messageid'];
+		
+		try {
+			$tplHelper->getFullSpot($mssg_id, false);
+		}
+		catch(Exception $mssg_id) {
+			// Skip this spot because it isn't valid
+			return false;
+		}
+		
 		# Format the spot header
 		$spot = $tplHelper->formatSpotHeader($spot);
 		
@@ -95,11 +105,10 @@
 			$thumb_crop   = '0.7:1';
 			
 		}
-		
 
 		echo '		<div class="spot_thumb_view spotlink '.$newSpotClass.'"'.$thumbsize.' id="spot_'.$spot['id'].'" data-cats="'.$catData.'">'.PHP_EOL;
 		echo '		  <div class="cover"'.$coversize.' onclick="openSpot(\'spot_'.$spot['id'].'\',\''.$spot['spoturl'].'\')" href="'.$spot['spoturl'].'">'.PHP_EOL;
-		echo '          <div class="spot_type spot_type_'.$spot['catshortdesc'].'"></div>'.PHP_EOL;
+		echo '          <div class="spot_type spot_type_'.$spot['catshortdesc'].(($spot['category'] == 3) ? '_app' : '').'"></div>'.PHP_EOL;
 		
 		if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
 			

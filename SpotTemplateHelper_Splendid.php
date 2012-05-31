@@ -150,19 +150,30 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 			$settings_nntp_hdr = $this->_settings->get('nntp_hdr');
 			$settings_nntp_nzb = $this->_settings->get('nntp_nzb');
 			
-			$fullSpot = $this->getFullSpot($mssg_id, false);
-			
-			$spotsOverview = new SpotsOverview($this->_db, $this->_settings);
-			$hdr_spotnntp = new SpotNntp($settings_nntp_hdr);
-	
-			/* Als de HDR en de NZB host hetzelfde zijn, zet geen tweede verbinding op */
-			if ($settings_nntp_hdr['host'] == $settings_nntp_nzb['host']) {
-				$nzb_spotnntp = $hdr_spotnntp;
-			} else {
-				$nzb_spotnntp = new SpotNntp($this->_settings->get('nntp_nzb'));
-			} # else
-			
-			$img_data = @$spotsOverview->getImage($fullSpot, $nzb_spotnntp);
+			try {
+				
+				$fullSpot = $this->getFullSpot($mssg_id, false);
+				
+				$spotsOverview = new SpotsOverview($this->_db, $this->_settings);
+				$hdr_spotnntp = new SpotNntp($settings_nntp_hdr);
+		
+				/* Als de HDR en de NZB host hetzelfde zijn, zet geen tweede verbinding op */
+				if ($settings_nntp_hdr['host'] == $settings_nntp_nzb['host']) {
+					$nzb_spotnntp = $hdr_spotnntp;
+				} else {
+					$nzb_spotnntp = new SpotNntp($this->_settings->get('nntp_nzb'));
+				} # else
+				
+				$img_data = @$spotsOverview->getImage($fullSpot, $nzb_spotnntp);
+				
+			}
+			catch(Exception $mssg_id) { 
+				
+				// getFullSpot failed
+				$img_data['metadata']['imagetype'] = 'no';
+				
+				$thumb_info = 'noimg';
+			} 
 			
 		}
 		
