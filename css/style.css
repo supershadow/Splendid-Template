@@ -633,9 +633,9 @@ tr.ui-widget-header a {
 .clearfix:after { clear: both; }
 .clearfix { *zoom: 1; }
 
-#spots_thumbnails {margin:0 0 0 235px; padding: 5px }
+#spots_thumbnails { margin:0 0 0 235px; padding: 5px }
 
-#spots_thumbnails .new { bordeR: 1px solid orange }
+#spots_thumbnails .new { border: 1px solid orange }
 
 .spot_thumb_view {
 	width: 160px;
@@ -666,7 +666,7 @@ tr.ui-widget-header a {
 	height: 42px;
 	position: absolute;
 	margin: -10px 0 0 -10px;
-	background: url('../img/spot_sprite.png') no-repeat;
+	background: url('../img/sprite_spot.png') no-repeat;
 }
 
 /* Spot Types */
@@ -676,6 +676,22 @@ tr.ui-widget-header a {
 .spot_thumb_view .cover .spot_type_MPG { background-position: -168px 0 }
 .spot_thumb_view .cover .spot_type_Blu-ray { background-position: -210px 0 }
 .spot_thumb_view .cover .spot_type_HD { background-position: -252px 0 }
+.spot_thumb_view .cover .spot_type_ePub { background-position: -294px 0 }
+
+.spot_thumb_view .cover .spot_type_MP3 { background-position: 0 -42px }
+.spot_thumb_view .cover .spot_type_WAV { background-position: -42px -42px }
+.spot_thumb_view .cover .spot_type_FLAC { background-position: -84px -42px }
+
+.spot_thumb_view .cover .spot_type_WIN { background-position: 0 -84px }
+.spot_thumb_view .cover .spot_type_Wii { background-position: -42px -84px }
+.spot_thumb_view .cover .spot_type_360 { background-position: -84px -84px }
+.spot_thumb_view .cover .spot_type_PSP { background-position: -126px -84px }
+.spot_thumb_view .cover .spot_type_Android { background-position: -168px -84px }
+.spot_thumb_view .cover .spot_type_NDS { background-position: -210px -84px }
+.spot_thumb_view .cover .spot_type_GC { background-position: -252px -84px }
+.spot_thumb_view .cover .spot_type_MAC { background-position: -294px -84px }
+.spot_thumb_view .cover .spot_type_PS2 { background-position: -336px -84px }
+.spot_thumb_view .cover .spot_type_PS3 { background-position: -378px -84px }
 
 .spot_thumb_view .cover .spotinfo {
 	width: 120px;

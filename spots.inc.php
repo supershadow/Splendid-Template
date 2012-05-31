@@ -4,7 +4,7 @@
 		require_once "includes/header.inc.php";	
 		require_once "includes/filters.inc.php";
 	} # if
-
+	
 	// We definieeren hier een aantal settings zodat we niet steeds dezelfde check hoeven uit te voeren
 	$show_watchlist_button = ($currentSession['user']['prefs']['keep_watchlist'] && $tplHelper->allowed(SpotSecurity::spotsec_keep_own_watchlist, ''));
 	$show_comments = ($settings->get('retrieve_comments') && $tplHelper->allowed(SpotSecurity::spotsec_view_comments, ''));
@@ -76,7 +76,7 @@
 			$reportSpam = '<span class="reportedSpam'.$reportSpamClass.'" title="' . sprintf(ngettext('There is %d spamreport found for this spot', 'There are %d spamreports found for this spot', $spot['reportcount']), $spot['reportcount']) . '"><span>'.$spot['reportcount'].'</span></span>';
 		}
 		
-
+		
 		// Set cover variables
 		if(isset($_GET['search']) && stristr($_GET['search']['tree'], 'cat1')) {
 			
@@ -122,6 +122,42 @@
 		}
 		
 		echo '		    <img src="'.$post_img.'" alt="'.$spot['title'].'" style="display: block" />';
+		
+		
+		
+	/*	
+		if(isset($_GET['search']) && stristr($_GET['search']['tree'], 'cat1')) {
+
+	$thumbsize = ' style="height: 186px"';
+	$coversize = ' style="height: 140px"';
+	$imgsize   = 'width=140&height=140&cropratio=1:1';
+
+} else {
+
+	$thumbsize = '';
+	$coversize = '';
+	$imgsize   = 'width=140&height=200';
+
+}
+
+echo '		<div class="spot_thumb_view spotlink '.$newSpotClass.'"'.$thumbsize.' id="spot_'.$spot['id'].'" data-cats="'.$catData.'">'.PHP_EOL;
+echo '		  <div class="cover"'.$coversize.' onclick="openSpot(\'spot_'.$spot['id'].'\',\''.$spot['spoturl'].'\')" href="'.$spot['spoturl'].'">'.PHP_EOL;
+
+if(file_exists( 'templates/splendid/imagecache/' . $spot['messageid'] )) {
+
+	$size	= @GetImageSize( 'templates/splendid/imagecache/' . $spot['messageid'] );
+
+	if($size[0] > 0) echo '		    <img src="templates/splendid/view_chached_image.php?image='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block" />'.PHP_EOL;
+	  else echo '		    <img src="templates/splendid/resize_image.php?'.$imgsize.'&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">'.PHP_EOL;
+
+} else {
+
+	echo '		    <img src="templates/splendid/resize_image.php?'.$imgsize.'&imgid='.$spot['messageid'].'&image=http://splendidnas/spotweb/?page=getimage%26messageid='.$spot['messageid'].'" alt="'.$spot['title'].'" style="display: block">'.PHP_EOL;
+
+}
+*/
+		
+		
 		
 		?>
 		    <div class="spotinfo">

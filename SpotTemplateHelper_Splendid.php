@@ -135,22 +135,36 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 	# Geneer een cover van een beschikbare afbeelding of een 'noimg' afbeelding
 	function get_thumbnail($mssg_id, $maxWidth=140, $maxHeight=200, $crop='') {
 		
-		$settings_nntp_hdr = $this->_settings->get('nntp_hdr');
-		$settings_nntp_nzb = $this->_settings->get('nntp_nzb');
+		// Check if there is a imagecache in DB
 		
-		$fullSpot = @$this->getFullSpot($mssg_id, false);
+		SpotTiming::start(__FUNCTION__);
+		$img_data = $this->_db->getCache($mssg_id, 1);
+		SpotTiming::stop(__FUNCTION__, array($img_data));
 		
-		$spotsOverview = new SpotsOverview($this->_db, $this->_settings);
-		$hdr_spotnntp = new SpotNntp($settings_nntp_hdr);
-
-		/* Als de HDR en de NZB host hetzelfde zijn, zet geen tweede verbinding op */
-		if ($settings_nntp_hdr['host'] == $settings_nntp_nzb['host']) {
-			$nzb_spotnntp = $hdr_spotnntp;
+		if($img_data['metadata']['width'] > 0) {
+			
+			$cached = true;
+			
 		} else {
-			$nzb_spotnntp = new SpotNntp($this->_settings->get('nntp_nzb'));
-		} # else
 		
-		$img_data = $spotsOverview->getImage($fullSpot, $nzb_spotnntp);
+			$settings_nntp_hdr = $this->_settings->get('nntp_hdr');
+			$settings_nntp_nzb = $this->_settings->get('nntp_nzb');
+			
+			$fullSpot = $this->getFullSpot($mssg_id, false);
+			
+			$spotsOverview = new SpotsOverview($this->_db, $this->_settings);
+			$hdr_spotnntp = new SpotNntp($settings_nntp_hdr);
+	
+			/* Als de HDR en de NZB host hetzelfde zijn, zet geen tweede verbinding op */
+			if ($settings_nntp_hdr['host'] == $settings_nntp_nzb['host']) {
+				$nzb_spotnntp = $hdr_spotnntp;
+			} else {
+				$nzb_spotnntp = new SpotNntp($this->_settings->get('nntp_nzb'));
+			} # else
+			
+			$img_data = @$spotsOverview->getImage($fullSpot, $nzb_spotnntp);
+			
+		}
 		
 		// Make sure that the requested file is actually an image
 		if (!is_numeric($img_data['metadata']['imagetype'])) {
@@ -312,7 +326,7 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 				case 'cached':
 					return 'templates/splendid/imagecache/'.$mssg_id;
 					break;
-				
+					
 				default:
 					
 					if(isset($_GET['search']) && stristr($_GET['search']['tree'], 'cat1')) return 'templates/splendid/img/noimg_140.png';
