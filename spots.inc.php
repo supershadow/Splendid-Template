@@ -16,6 +16,8 @@
 	
 	echo '<div id="spots_thumbnails" class="clearfix" summary="Spots">';
 	
+	//$tplHelper->create_imagecache_table();
+	
 	foreach($spots as $spot) {
 		
 		$mssg_id = $spot['messageid'];
@@ -25,7 +27,7 @@
 		}
 		catch(Exception $mssg_id) {
 			// Skip this spot because it isn't valid
-			continue;
+			if ($mssg_id->getMessage() == 'String could not be parsed as XML') continue;
 		}
 		
 		# Format the spot header

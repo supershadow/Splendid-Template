@@ -1675,6 +1675,8 @@ $(window).ready(function() {
 		
 	});
 	
+	$.post('templates/splendid/includes/clear_img_cache.php');
+	
 });
 
 $(window).resize(function() {
