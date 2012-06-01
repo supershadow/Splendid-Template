@@ -128,7 +128,7 @@
 			
 				$cat = SpotCategories::SubcatDescription($spot['category'], $subcatType);
 			
-				if($cat != '-') {
+				if($cat != '-' && $cat != 'Formaat') {
 			
 					echo '<tr><td>'.$cat . ':</td>';
 					echo "<td>" . SpotCategories::Cat2Desc($spot['category'], $sub) . "</td></tr>";

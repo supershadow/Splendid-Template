@@ -1618,9 +1618,12 @@ $(window).ready(function() {
 	
 	//setThumbViewSize();
 	
-	$('.spot_thumb_view .cover').on({
+	$('.spot_thumb_view .cover').live({
 		
 		'mouseover': function() {
+			
+			$('.spot_thumb_view .spotinfo').not(this).hide();
+			$('.spot_thumb_view .spot_type').not(this).css({'z-index':1});
 			
 			$('.spotinfo', this).css({'display':'block','z-index': 2});
 			$('.spot_type', this).css({'z-index':3});
@@ -1635,6 +1638,8 @@ $(window).ready(function() {
 		'mouseleave': function() {
 			
 			var ele = this;
+			
+			//$('.spotinfo', ele).css({ 'width':'160px' });
 			
 			$('.spotinfo', ele).animate({ width: '160px' }, 0, function() {
 				

@@ -265,6 +265,7 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 				case 3:
 					$outputFunction		= 'ImagePng';
 					$doSharpen			= FALSE;
+					$imgType 			= 'png';
 					$quality			= round(10 - ($quality / 10)); // PNG needs a compression level of 0 (no compression) through 9
 					
 					// If this is a GIF or a PNG, we need to set up transparency
@@ -274,6 +275,7 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 				
 				default:
 					$outputFunction	 	= 'ImageJpeg';
+					$imgType 			= 'jpg';
 					$doSharpen			= TRUE;
 				break;
 			}
@@ -299,24 +301,34 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 			}
 			
 			// Make sure the cache exists. If it doesn't, then create it
-			if (!file_exists($cache_dir))
-				mkdir('imagecache', 0755);
+			if (!file_exists($cache_dir)) {
+				@mkdir('imagecache', 0777);
+				
+				if (!file_exists($cache_dir)) {
+					echo "<div style=\"margin: 10px 0 6px 22px; color: red\">Kon geen imagecache directory aanmaken. Maak deze aan in templates/splendid genaamd 'imagecache'</div>";
+					$thumb_info = 'noimg_140';
+				}
+				
+			}
 			
 			// Make sure we can read and write the cache directory
-			if (!is_readable($cache_dir)) {
+			else if (!is_readable($cache_dir)) {
 				
-				$thumb_info = 'noimg';
+				echo "<div style=\"margin: 10px 0 6px 22px; color: red\">Geen leesrechten in templates/splendid/imagecache. Veranderd de rechten naar minimaal 777</div>";
+				
+				$thumb_info = 'noimg_140';
 				
 			}
 			else if (!is_writable($cache_dir)) {
 				
-				$thumb_info = 'noimg';
+				echo "<div style=\"margin: 10px 0 6px 22px; color: red\">Geen schrijfrechten in templates/splendid/imagecache. Veranderd de rechten naar minimaal 777</div>";
+				
+				$thumb_info = 'noimg_140';
 				
 			} else {
 			
 				// Write the resized image to the cache
 				$outputFunction($dst, $resized, $quality);
-				
 				// Put the data of the resized image into a variable
 				ob_start();
 				$outputFunction($dst, null, $quality);
@@ -336,6 +348,14 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 			
 				case 'cached':
 					return 'templates/splendid/imagecache/'.$mssg_id;
+					
+					//return $this->base64_encode_image($data, $imgType);
+					
+					break;
+				
+				case 'noimg_140';
+					
+					return 'templates/splendid/img/noimg_140.png';
 					break;
 					
 				default:
@@ -363,6 +383,12 @@ class SpotTemplateHelper_Splendid extends SpotTemplateHelper {
 		
 		return max(round($result), 0);
 	} // findSharp()
+	
+	function base64_encode_image($imgdata, $filetype) {
+		if ($imgdata) {
+			return 'data:image/' . $filetype . ';base64,' . base64_encode($imgdata);
+		}
+	}
 	
 	function yt($text) {
    
